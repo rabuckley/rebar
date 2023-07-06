@@ -395,11 +395,6 @@ agggtaa[cgt]|[acg]ttaccct 43
         );
     }
 
-    // Does C# really not have anonymous closure types? I couldn't find it in
-    // their sections on delegates or lambda expressions. Oh well.
-    public delegate int Count<T>(T t);
-    public delegate T Bench<T>();
-
     // Takes in a benchmark config, a closure that returns the count from the
     // benchmark function and a benchmark function that returns a result that
     // can be converted into a count. As output, it returns a list of samples
@@ -414,8 +409,8 @@ agggtaa[cgt]|[acg]ttaccct 43
     // The 'count' function is not part of the measurement.
     static List<Sample> RunAndCount<T>(
         Config config,
-        Count<T> count,
-        Bench<T> bench
+        Func<T, int> count,
+        Func<T> bench
     )
     {
         Stopwatch warmupTimer = Stopwatch.StartNew();
